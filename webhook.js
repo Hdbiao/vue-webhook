@@ -21,9 +21,10 @@ const server = http.createServer((req, res) => {
                 console.log('伪造的请求，中断');
                 return res.end('Not ALLOW')
             }
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify({ ok: true }))
         })
-        res.setHeader('Content-Type', 'application/json')
-        res.end(JSON.stringify({ ok: true }))
+
     } else {
         res.end('Not Found')
     }
