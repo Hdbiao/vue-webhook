@@ -1,15 +1,16 @@
 {
-  "name": "vue-webhook",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "nodemailer": "^6.7.2"
-  }
+    "name": "vue-webhook",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "pm2 start ./webhook.js --name webhook --watch",
+        "stop": "pm2 stop webhook"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "nodemailer": "^6.7.2"
+    }
 }
