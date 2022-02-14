@@ -1,5 +1,6 @@
 #! /bin/bash
 WORK_PATH = '/usr/projects/vue-back'
+echo $WORK_PATH
 cd $WORK_PATH
 echo '先清除旧代码'
 git reset --hard origin/master
