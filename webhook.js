@@ -15,7 +15,7 @@ const server = http.createServer((req, res) => {
         })
         req.on('end', () => {
             let body = Buffer.concat(buffers)
-            let event = req.headers['x-gitHub-event']
+            let event = req.headers['x-github-event']
             // github请求过来的时候要传递body和一个signature，需要验证签名
             let signature = req.headers['x-hub-signature']
             if (signature !== sign(body)) {
@@ -25,6 +25,7 @@ const server = http.createServer((req, res) => {
             res.setHeader('Content-Type', 'application/json')
             res.end(JSON.stringify({ ok: true }))
             if (event == 'push') {
+                console.log('开始部署');
                 // 开始部署
                 const deployParams = JSON.parse(body)
                 let child = spawn('sh', [`./${deployParams.repository.name}.sh`]);
@@ -36,6 +37,7 @@ const server = http.createServer((req, res) => {
                     let log = Buffer.concat(buffers)
                     console.log(log);
                 })
+                console.log('部署结束');
             }
         })
 
