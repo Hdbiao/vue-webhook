@@ -1,5 +1,6 @@
 const http = require('http')
 const crypto = require('crypto')
+const { spawn } = require('child_process')
 const SECRET = '123456'
 function sign(body) {
     return `sha1=${crypto.createHmac('sha1', SECRET).update(body).digest('hex')}`
@@ -23,6 +24,19 @@ const server = http.createServer((req, res) => {
             }
             res.setHeader('Content-Type', 'application/json')
             res.end(JSON.stringify({ ok: true }))
+            if (event == 'push') {
+                // 开始部署
+                const deployParams = JSON.parse(body)
+                let child = spawn('sh', [`./${deployParams.repository.name}.sh`]);
+                let buffers = []
+                child.stdout.on('data', (buffer) => {
+                    buffers.push(buffer)
+                })
+                child.stdout.on('end', (buffer) => {
+                    let log = Buffer.concat(buffers)
+                    console.log(log);
+                })
+            }
         })
 
     } else {
