@@ -28,6 +28,7 @@ const server = http.createServer((req, res) => {
                 console.log('开始部署');
                 // 开始部署
                 const deployParams = JSON.parse(body)
+                console.log(deployParams.repository.name);
                 let child = spawn('sh', [`./${deployParams.repository.name}.sh`]);
                 let buffers = []
                 child.stdout.on('data', (buffer) => {
