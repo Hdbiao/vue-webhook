@@ -34,10 +34,11 @@ const server = http.createServer((req, res) => {
                     buffers.push(buffer)
                 })
                 child.stdout.on('end', (buffer) => {
-                    let log = Buffer.concat(buffers)
-                    console.log(log);
+                    let log = Buffer.concat(buffers).toString()
+                    console.log('log---', log);
+                    console.log('部署结束');
                 })
-                console.log('部署结束');
+
             }
         })
 
